@@ -3,6 +3,8 @@ package com.thseven.crudclient;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.thseven.crudclient.entities.Client;
+
 public class ClientDTO {
 	private Long id;
 	private String name;
@@ -13,6 +15,15 @@ public class ClientDTO {
 	
 	public ClientDTO() {
 		
+	}
+
+	public ClientDTO(Client entity) {
+		this.id = entity.getId();
+		this.name = entity.getName();
+		this.cpf = entity.getCpf();
+		this.income = entity.getIncome();
+		this.birthDate = entity.getBirthDate();
+		this.children = entity.getChildren();
 	}
 
 	public Long getId() {
