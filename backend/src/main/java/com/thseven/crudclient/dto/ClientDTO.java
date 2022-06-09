@@ -1,4 +1,4 @@
-package com.thseven.crudclient;
+package com.thseven.crudclient.dto;
 
 import java.time.Instant;
 import java.util.Objects;
