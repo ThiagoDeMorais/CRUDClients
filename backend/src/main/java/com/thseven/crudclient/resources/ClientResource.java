@@ -6,10 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.thseven.crudclient.entities.Client;
+import com.thseven.crudclient.dto.ClientDTO;
 import com.thseven.crudclient.services.ClientService;
 
 @RestController
@@ -20,9 +21,15 @@ public class ClientResource {
 	private ClientService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Client>> findAll(){
-		List<Client> list = new ArrayList<>();
+	public ResponseEntity<List<ClientDTO>> findAll(){
+		List<ClientDTO> list = new ArrayList<>();
 		list = service.findAll();
 		return ResponseEntity.ok().body(list);
+	}
+	
+	@GetMapping(value ="/{id}")
+	public ResponseEntity<ClientDTO> findById(@PathVariable Long id){
+		ClientDTO dto = service.findById(id);
+		return ResponseEntity.ok().body(dto);
 	}
 }
