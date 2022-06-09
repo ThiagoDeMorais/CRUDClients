@@ -1,10 +1,11 @@
 package com.thseven.crudclient.services;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +20,10 @@ public class ClientService {
 	private ClientRepository repository;
 	
 	@Transactional(readOnly = true)
-	public List<ClientDTO> findAll() {
-		List<Client> list = repository.findAll();
-		List<ClientDTO> dto = list.stream().map(client -> new ClientDTO(client)).toList();
-		return dto;
+	public Page<ClientDTO> findAllPaged(PageRequest pageRequest) {
+		Page<Client> list = repository.findAll(pageRequest);
+		return list.map(client -> new ClientDTO(client));
+
 	}
 
 	@Transactional(readOnly = true)
@@ -52,6 +53,7 @@ public class ClientService {
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+	
 	private void copyDtoToEntity(ClientDTO dto, Client entity) {
 		entity.setName(dto.getName());
 		entity.setCpf(dto.getCpf());
