@@ -1,6 +1,5 @@
 package com.thseven.crudclient.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.thseven.crudclient.dto.ClientDTO;
 import com.thseven.crudclient.entities.Client;
 import com.thseven.crudclient.repositories.ClientRepository;
+import com.thseven.crudclient.services.exceptions.EntityNotFoundException;
 
 @Service
 public class ClientService {
@@ -29,7 +29,7 @@ public class ClientService {
 	@Transactional(readOnly = true)
 	public ClientDTO findById(Long id) {
 		Optional<Client> obj = repository.findById(id);
-		Client entity = obj.get();
+		Client entity = obj.orElseThrow(()-> new EntityNotFoundException("Entidade não encontrada"));
 		return new ClientDTO(entity);
 	}
 	
