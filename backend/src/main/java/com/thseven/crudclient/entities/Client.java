@@ -92,6 +92,4 @@ public class Client implements Serializable{
 		Client other = (Client) obj;
 		return Objects.equals(cpf, other.cpf) && Objects.equals(id, other.id);
 	}
-	
-	
 }
